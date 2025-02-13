@@ -4,7 +4,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+        "@components/*": ["./src/app/components/*"],
+        "@showcase/*": ["./src/app/showcase/*"]
+    }
   },
   "files": [
     "src/main.ts"
