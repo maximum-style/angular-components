@@ -8,8 +8,8 @@ cli.default({
         'generate',
         'component',
         `components/${name}`,
-        '--selector',
-        `max-${name}`
+        '--prefix',
+        `max`
 ]});
 
 cli.default({
@@ -17,5 +17,6 @@ cli.default({
         'generate',
         'component',
         `showcase/${args[2]}-showcase`,
-        '--skip-selector'
+        '--skip-selector',
+        '--skip-tests'
 ]});
