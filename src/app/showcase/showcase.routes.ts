@@ -1,9 +1,9 @@
 import {Routes} from "@angular/router";
-import {ExampleShowcaseComponent} from "./example-showcase/example-showcase.component";
+import {InputShowcaseComponent} from "./input-showcase/input-showcase.component";
 
 export const showcaseRoutes: Routes = [
     {
-        path: 'example',
-        component: ExampleShowcaseComponent
+        path: 'input',
+        component: InputShowcaseComponent
     }
 ]
