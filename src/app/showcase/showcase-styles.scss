@@ -3,6 +3,6 @@
   grid-template: 1fr / 1fr 2fr 1fr;
 }
 
-.max-showcase-examples {
+.max-showcase-container > * {
   grid-column-start: 2;
 }
