@@ -1,0 +1,8 @@
+.max-showcase-container {
+  display: grid;
+  grid-template: 1fr / 1fr 2fr 1fr;
+}
+
+.max-showcase-examples {
+  grid-column-start: 2;
+}
