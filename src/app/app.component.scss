@@ -1,0 +1,9 @@
+.menu {
+  display: grid;
+  grid-template: 100vh / 1fr 5fr;
+}
+
+.menu-navbar {
+  border-right: 1px solid lightgray;
+  margin-right: 15px;
+}
