@@ -1,1 +1,8 @@
-@import 'app/components/input/input.directive.scss';
+@use 'app/components/input/input.directive.scss';
+
+code {
+  background-color: lightgray;
+  padding: 2px 5px;
+  border: 1px solid #AAAAAA;
+  border-radius: 5px;
+}

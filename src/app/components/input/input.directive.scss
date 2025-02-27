@@ -1,7 +1,7 @@
-@import '../../styles/colors.scss';
+@use '../../styles/colors.scss';
 
 .max-input {
-  border: 1px $component-border-color-default solid;
+  border: 1px colors.$component-border-color-default solid;
   padding: 10px 7px;
   border-radius: 7px; 
 
@@ -10,11 +10,16 @@
   transition-timing-function: ease-in-out;
 
   &:hover, &:focus {
-    border-color: $component-border-color-focus;
+    border-color: colors.$component-border-color-focus;
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px $component-box-shadow-color;
+    box-shadow: 0 0 0 2px colors.$component-box-shadow-color;
+  }
+
+  &:disabled {
+    border-color: lightgrey;
+    background-color: #EFEFEF;
   }
 }

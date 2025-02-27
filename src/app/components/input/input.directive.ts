@@ -1,15 +1,12 @@
-import { computed, Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
   selector: 'input[maxInput]',
   host: {
-      'class': 'typeStyleClass()'
+      'class': 'max-input'
   }
 })
 export class InputDirective {
-
-    public readonly type = input<'primary' | 'danger'>();
-    public readonly typeStyleClass = computed(() => `max-button-${this.type()}`);
 
   constructor() { }
 
