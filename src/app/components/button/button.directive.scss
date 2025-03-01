@@ -1,3 +1,26 @@
-.primary-button {
-    background-color: aqua;
+.max-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    border: 1px solid transparent;
+    //background-color: blue($color: #000000);
+    color: #fff;
+    cursor: pointer;
+
+    :disabled {
+        cursor: default !important;
+        pointer-events: none !important;
+    }
+
+    &.primary {
+        background-color: blue !important;
+    }
+
+    &.secondary {
+        background-color: gray !important;
+    }
+
+    &.auxiliary {
+        background-color: transparent !important;
+        color: blue !important
+    }
 }

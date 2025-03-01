@@ -1,15 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
-
-.button {
-    padding: 0.5rem 1rem;
-    border-radius: 0.4rem;
-    color: #444;
-    border: 1px solid transparent;
-    background-color: blue($color: #000000);
-    color: #fff;
-
-    &--secondary {
-        color: var(--primary);
-        border-color: #333;
-    }
-}
+@import url(app/components/button/button.directive.scss);
