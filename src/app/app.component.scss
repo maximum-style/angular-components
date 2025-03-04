@@ -1,6 +1,7 @@
 .menu {
+  min-height: 100vh;
   display: grid;
-  grid-template: 100vh / 1fr 5fr;
+  grid-template: 100% / 1fr 5fr;
 }
 
 .menu-navbar {

@@ -1,18 +1,57 @@
 <h2>Input directive showcase</h2>
 <div class="max-showcase-container">
         <max-showcase-example
-                title="TITLE"
-                description="DESCRIPTION">
+                title="Default styling"
+                description="By applying the `maxInput` directive, a default style is applied unto the input.">
             <input maxInput />
         </max-showcase-example>
         <max-showcase-example
-                title="TITLE"
-                description="DESCRIPTION">
-            <input maxInput>
+                title="Disabled styling"
+                description="Also, the directive, applies a custom style to disabled inputs.">
+            <input maxInput disabled="true" />
         </max-showcase-example>
         <max-showcase-example
-                title="TITLE"
-                description="DESCRIPTION">
-            <input maxInput>
+                title="Forms module"
+                description="Component integrates with forms module, allowing accessing to the value of the input
+                             through `ngModel`.">
+            <div style="text-align: center; width: 100%;">
+                <div style="display: flex; gap: 5px; justify-content: center;">
+                    <input maxInput [(ngModel)]="e3_value" />
+                    <input maxInput [(ngModel)]="e3_value" />
+                </div>
+                {{ e3_value }}
+            </div>
+        </max-showcase-example>
+        <max-showcase-example
+                title="Reactive Forms module"
+                description="Similarly, component can also integrate with reactive forms module and be a part of
+                             a form group.">
+            <div style="text-align: center; width: 100%;">
+                <form [formGroup]="e4_formGroup">
+                    <div style="display: flex; gap: 5px; justify-content: center;">
+                        <input maxInput formControlName="e4_control"/>
+                    </div>
+                </form>
+                {{ e4_formGroup.controls['e4_control'].value }}
+            </div>
+        </max-showcase-example>
+        <max-showcase-example
+                title="As value changes"
+                description="The `maxInput` directive provides an event that is triggered every time the value is changed.">
+            <div style="text-align: center; width: 100%;">
+                <input maxInput (valueChanges)="E5_valueChanges($event)" />
+                {{ e5_value }}
+            </div>
+        </max-showcase-example>
+        <max-showcase-example
+                title="As value updates"
+                description="By directive also provides an event that is triggered when the value changes, that brings with it the old and new value, thus being able to analyse what update.">
+            <div style="text-align: center; width: 100%;">
+                <input maxInput (valueUpdates)="E6_valueUpdates($event)" />
+                @if (e6_value) {
+                    <p>Old: {{ e6_value.old  }}</p>
+                    <p>New: {{ e6_value.new  }}</p>
+                }
+            </div>
         </max-showcase-example>
 </div>

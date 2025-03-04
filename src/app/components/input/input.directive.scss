@@ -1,6 +1,6 @@
 @use '../../styles/colors.scss';
 
-.max-input {
+input.max-input {
   border: 1px colors.$component-border-color-default solid;
   padding: 10px 7px;
   border-radius: 7px; 
