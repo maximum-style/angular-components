@@ -1,15 +1,15 @@
 import { Directive, input } from '@angular/core';
 
-@Directive({
-  selector: 'button[max-button]',
-  host: {
-    '[class]': '"max-button " + type()',
-    '[attr.aria-disabled]': 'true'
-  },
+type MaxButtonType = 'primary' | 'secondary' | 'auxiliary';
 
+@Directive({
+  selector: 'button[maxButton]',
+  host: {
+    '[class]': '"max-button " + type()'
+  }
 })
 export class ButtonDirective {
 
-  public type = input<string>('primary');
+  public type = input<MaxButtonType>('primary');
 
 }
