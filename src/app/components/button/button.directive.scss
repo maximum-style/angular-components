@@ -1,26 +1,46 @@
+@use '../../styles/colors.scss' as *;
+
 .max-button {
     padding: 0.5rem 1rem;
     border-radius: 0.4rem;
     border: 1px solid transparent;
-    //background-color: blue($color: #000000);
     color: #fff;
     cursor: pointer;
 
-    :disabled {
-        cursor: default !important;
-        pointer-events: none !important;
-    }
-
     &.primary {
-        background-color: blue !important;
+        background-color: $component-border-color-focus;
     }
 
     &.secondary {
-        background-color: gray !important;
+        background-color: $component-border-color-default;
     }
 
     &.auxiliary {
-        background-color: transparent !important;
-        color: blue !important
+        background-color: transparent;
+        color: $component-border-color-focus
     }
+
+    &.success {
+        background-color: $component-severity-success !important;
+    }
+
+    &.warning {
+        background-color: $component-severity-warning !important;
+
+    }
+
+    &.danger {
+        background-color: $component-severity-danger !important;
+    }
+}
+
+.disabled {
+    opacity: 0.5 !important;
+    cursor: default !important;
+    pointer-events: none !important;
+}
+
+.with-icon::before {
+    content: "⏭";
+    padding-right: 3px;
 }

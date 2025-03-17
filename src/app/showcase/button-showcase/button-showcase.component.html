@@ -1,5 +1,23 @@
 <max-showcase-example [title]="'Button'" [description]="'Lorem ipsum'">
-        <button maxButton>Save</button>
-        <button maxButton [type]="'secondary'">Save</button>
-        <button maxButton [type]="'auxiliary'">Save</button>
+        <button maxButton (click)="onClickEvent()">Primary</button>
+        <button maxButton [type]="'secondary'">Secondary</button>
+        <button maxButton [type]="'auxiliary'">Auxiliary</button>
+</max-showcase-example>
+<max-showcase-example [title]="''" [description]="'Lorem ipsum severity etc etc'">
+        <button maxButton [severity]="'success'">Success</button>
+        <button maxButton [severity]="'warning'">Warning</button>
+        <button maxButton [severity]="'danger'">Danger</button>
+</max-showcase-example>
+<max-showcase-example [title]="''" [description]="'Disabled etc etc'">
+        <button maxButton [disabled]="true" (click)="onClickEvent()">Primary</button>
+        <button maxButton [type]="'secondary'" [disabled]="true">Secondary</button>
+        <button maxButton [type]="'auxiliary'" [disabled]="true">Auxiliary</button>
+        <button maxButton [severity]="'success'" [disabled]="true">Success</button>
+        <button maxButton [severity]="'warning'" [disabled]="true">Warning</button>
+        <button maxButton [severity]="'danger'" [disabled]="true">Danger</button>
+</max-showcase-example>
+<max-showcase-example [title]="''" [description]="'Icon etc etc'">
+        <button maxButton [icon]="'temIcon'">Primary</button>
+        <button maxButton [type]="'secondary'" [icon]="'temIcon'">Secondary</button>
+        <button maxButton [type]="'auxiliary'" [icon]="'temIcon'">Auxiliary</button>
 </max-showcase-example>

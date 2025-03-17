@@ -12,6 +12,8 @@ import { ShowcaseExampleComponent } from '@showcase/showcase-example/showcase-ex
 })
 export class ButtonShowcaseComponent {
 
-  
+  public onClickEvent() {
+    console.log('TO HABILITADO AAAAAAAAAA')
+  }
 
 }
