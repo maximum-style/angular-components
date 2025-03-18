@@ -24,11 +24,59 @@ input.max-input {
   }
 
   &:enabled:is(.ng-touched, .ng-dirty).ng-invalid, 
-  *:not(form):enabled:is(.ng-touched, .ng-dirty).ng-invalid > & {
+  *:not(form):enabled:is(.ng-touched, .ng-dirty).ng-invalid & {
     border-color: colors.$component-invalid-border;
 
     &:focus {
       box-shadow: 0 0 0 2px colors.$component-invalid-box-shadow ;
     }
+  }
+
+  .max-input-prefix > & {
+    border-left: none;
+    border-radius: 0px 7px 7px 0px;
+  }
+
+  .max-input-suffix > & {
+    border-right: none;
+    border-radius: 7px 0px 0px 7px;
+  }
+
+  .max-input-prefix.max-input-suffix > & {
+    border-left: none;
+    border-right: none;
+
+    border-radius: 0px;
+  }
+}
+
+.max-input-wrapper {
+  --prefix: '';
+  --suffix: '';
+
+  display: inline-flex;
+
+  @mixin max-input-appendix {
+    background-color: lightgray;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  &.max-input-prefix::before {
+    @include max-input-appendix();
+
+    content: var(--prefix);
+    border-radius: 7px 0px 0px 7px;
+  }
+
+  &.max-input-suffix::after {
+    @include max-input-appendix();
+    
+    content: var(--suffix);
+    border-radius: 0px 7px 7px 0px;
   }
 }

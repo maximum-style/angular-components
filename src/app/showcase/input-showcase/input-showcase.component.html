@@ -3,7 +3,7 @@
         <max-showcase-example
                 title="Default styling"
                 description="By applying the `maxInput` directive, a default style is applied unto the input.">
-            <input maxInput />
+            <input maxInput prefix="R$" />
         </max-showcase-example>
         <max-showcase-example
                 title="Disabled styling"
@@ -58,5 +58,8 @@
                 title="Invalid input"
                 description="When the input is marked as invalid by any Angular forms, it receives a red tint around its border.">
             <form [formGroup]="e7_formGroup"><input maxInput formControlName="control" /></form>
+        </max-showcase-example>
+        <max-showcase-example title="Number input" description="blablabla">
+            <input maxInput type="number" />
         </max-showcase-example>
 </div>
