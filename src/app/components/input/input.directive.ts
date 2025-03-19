@@ -1,19 +1,20 @@
-import { Directive, effect, ElementRef, inject, input, output, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, effect, ElementRef,  inject, input, output, Renderer2, RendererStyleFlags2 } from '@angular/core';
 
 @Directive({
   selector: 'input[maxInput]',
   host: {
       'class': 'max-input',
       '(keyup)': 'onKeyUp($event.target)',
-  }
+  },
 })
-export class InputDirective {
+export class InputDirective implements AfterViewInit {
 
+    private renderer = inject(Renderer2);
     private element: ElementRef<HTMLInputElement> = inject(ElementRef);
 
-    private oldValue = '';
+    private wrapper: HTMLDivElement;
 
-    private wrapperStyles: [string, string][] = [];
+    private oldValue = '';
 
     public prefix = input<string>();
     public suffix = input<string>();
@@ -21,26 +22,58 @@ export class InputDirective {
     public valueChanges = output<string>();
     public valueUpdates = output<{ old: string; new: string; }>();
 
-    constructor(renderer: Renderer2) {
-        const wrapper = this.wrapElement(renderer);
+    constructor() {
+        this.wrapper = this.createWrapper();
 
-        effect(() => {
-            const prefix = this.prefix();
-            if (prefix) {
-                wrapper.classList.add('max-input-prefix');
-                
-                this.wrapperStyles.push(['--prefix', prefix]);
-
-                this.updateWrapperStyle(wrapper);
-            } else {
-                wrapper.classList.remove('max-input-prefix');
-
-                this.wrapperStyles = this.wrapperStyles.filter(([prop, _]) => prop !== '--prefix');
-
-                this.updateWrapperStyle(wrapper);
-            }
-        })
+        effect(() => this.onPrefixUpdate(this.prefix()));
+        effect(() => this.onSuffixUpdate(this.suffix()));
     }
+
+    public ngAfterViewInit(): void {
+        const hostElement = this.element.nativeElement;
+        this.renderer.insertBefore(hostElement.parentNode, this.wrapper, hostElement);
+
+        this.renderer.appendChild(this.wrapper, hostElement);
+    }
+
+    private createWrapper() {
+        const wrapper = this.renderer.createElement('div');
+        this.renderer.addClass(wrapper, 'max-input-wrapper');
+        return wrapper;
+    }
+
+    private onSuffixUpdate(suffix: string | undefined) {
+        const suffixClass = 'max-input-suffix';
+        const suffixVariable = '--suffix';
+
+        if (suffix) {
+            this.addAppendix(suffix, suffixClass, suffixVariable);
+        } else {
+            this.removeAppendix(suffixClass, suffixVariable);
+        }
+    }
+
+    private onPrefixUpdate(prefix: string | undefined) {
+        const prefixClass = 'max-input-prefix';
+        const prefixVariable = '--prefix';
+
+        if (prefix) {
+            this.addAppendix(prefix, prefixClass, prefixVariable);
+        } else {
+            this.removeAppendix(prefixClass, prefixVariable);
+        }
+    }
+
+    private addAppendix(appendixValue: string, appendixClass: string, appendixVariable: string) {
+        this.wrapper.classList.add(appendixClass);
+        this.renderer.setStyle(this.wrapper, appendixVariable, `'${appendixValue}'`, RendererStyleFlags2.DashCase);
+    }
+
+    private removeAppendix(appendixClass: string, appendixVariable: string) {
+        this.wrapper.classList.remove(appendixClass);
+        this.renderer.removeStyle(this.wrapper, appendixVariable, RendererStyleFlags2.DashCase);
+    }
+
 
     public onKeyUp(element: HTMLInputElement) {
         const newValue = element.value;
@@ -51,21 +84,4 @@ export class InputDirective {
             this.oldValue = newValue;
         }
     }
-
-    private wrapElement(renderer: Renderer2) {
-        const wrapper = renderer.createElement('div');
-        renderer.addClass(wrapper, 'max-input-wrapper');
-
-        const hostElement = this.element.nativeElement;
-        renderer.insertBefore(hostElement.parentNode, wrapper, hostElement);
-
-        renderer.appendChild(wrapper, hostElement);
-
-        return wrapper;
-    }
-
-    private updateWrapperStyle(wrapper: { style: string }) {
-       wrapper.style = this.wrapperStyles.map(([prop, value]) => `${prop}: ${value}`).join('; ');
-    }
-
 }
