@@ -5,6 +5,8 @@ import { AfterViewInit, Directive, effect, ElementRef,  inject, input, output, R
   host: {
       'class': 'max-input',
       '(keyup)': 'onKeyUp($event.target)',
+      '(keydown)': 'onKeyDown($event)'
+      '(stepup)'
   },
 })
 export class InputDirective implements AfterViewInit {
@@ -83,5 +85,32 @@ export class InputDirective implements AfterViewInit {
             this.valueUpdates.emit({ old: this.oldValue, new: newValue });
             this.oldValue = newValue;
         }
+    }
+
+    public onKeyDown(event: KeyboardEvent) {
+        const element = this.element.nativeElement;
+        if (element.type === 'number') {
+            const expectionKeys = ['Backspace', '.'];
+
+            const value = element.value; 
+
+            if (event.key === '-') {
+                event.preventDefault();
+                if (!value.startsWith('-')) {
+                    element.value = '-' + value;
+                }
+            } else if (event.key === '+') {
+                event.preventDefault();
+                if (value.startsWith('-')) {
+                     element.value = value.replace('-', '');
+                }
+            } else if (event.key.match(/\D/) && !expectionKeys.includes(event.key)) {
+                event.preventDefault();
+            } 
+        }
+    }
+
+    public onStepUp() {
+        
     }
 }
