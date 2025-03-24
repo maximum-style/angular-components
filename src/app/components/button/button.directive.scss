@@ -39,8 +39,3 @@
     cursor: default !important;
     pointer-events: none !important;
 }
-
-.with-icon::before {
-    content: "⏭";
-    padding-right: 3px;
-}
