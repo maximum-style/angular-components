@@ -17,7 +17,8 @@
         <button maxButton [severity]="'danger'" [disabled]="true">Danger</button>
 </max-showcase-example>
 <max-showcase-example [title]="''" [description]="'Icon etc etc'">
-        <button maxButton><i class="fa fa-camera-retro"></i> Primary</button>
-        <button maxButton [type]="'secondary'"><i class="fa fa-camera-retro"></i> Secondary</button>
-        <button maxButton [type]="'auxiliary'"><i class="fa fa-camera-retro"></i> Auxiliary</button>
+        <button maxButton [icon]="'fa fa-camera-retro'">Primary</button>
+        <button maxButton [icon]="'fa fa-camera-retro'" [type]="'auxiliary'">Auxiliary</button>
+        <button maxButton [icon]="'fa fa-camera-retro'" [iconPosition]="'right'">Primary</button>
+        <button maxButton [icon]="'fa fa-camera-retro'" [iconPosition]="'right'" [type]="'auxiliary'">Auxiliary</button>
 </max-showcase-example>
