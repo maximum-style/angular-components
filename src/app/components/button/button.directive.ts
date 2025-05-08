@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, linkedSignal, Renderer2 } from '@angular/core';
 
 type MaxButtonType = 'primary' | 'secondary' | 'auxiliary';
 type MaxButtonSeverity = 'success' | 'warning' | 'danger';
@@ -24,9 +24,27 @@ export class ButtonDirective {
   private element: ElementRef<HTMLInputElement> = inject(ElementRef);
 
   constructor() {
-    effect(() => this.onIconUpdate(this.icon()));
-  }
+    effect(() => {
+      if (!this.icon()) {
+        return;
+      }
+      const hostElement = this.element.nativeElement;
+      const iconElement = this.renderer.createElement('i');
+      const iconClasses = (this.icon() as string).split(' ');
+      iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
 
+      switch (this.iconPosition()) {
+        case 'left':
+          this.renderer.addClass(iconElement, 'icon-left');
+          this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
+          break;
+        case 'right':
+          this.renderer.addClass(iconElement, 'icon-right');
+          this.renderer.appendChild(hostElement, iconElement);
+          break;
+      }
+    });
+  }
 
   public getTypeOrSeverity() {
     return this.severity() ? this.severity() : this.type();
@@ -36,24 +54,24 @@ export class ButtonDirective {
     return !!this.icon();
   }
 
-  private onIconUpdate(icon: string | undefined) {
-    if (!icon) {
-      return;
-    }
-    const hostElement = this.element.nativeElement;
-    const iconElement = this.renderer.createElement('i');
-    const iconClasses = icon.split(' ');
-    iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
+  // public iconUpdate = computed(() => {
+  //   if (!this.icon()) {
+  //     return;
+  //   }
+  //   const hostElement = this.element.nativeElement;
+  //   const iconElement = this.renderer.createElement('i');
+  //   const iconClasses = (this.icon() as string).split(' ');
+  //   iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
 
-    switch (this.iconPosition()) {
-      case 'left':
-        this.renderer.addClass(iconElement, 'icon-left');
-        this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
-        break;
-      case 'right':
-        this.renderer.addClass(iconElement, 'icon-right');
-        this.renderer.appendChild(hostElement, iconElement);
-        break;
-    }
-  }
+  //   switch (this.iconPosition()) {
+  //     case 'left':
+  //       this.renderer.addClass(iconElement, 'icon-left');
+  //       this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
+  //       break;
+  //     case 'right':
+  //       this.renderer.addClass(iconElement, 'icon-right');
+  //       this.renderer.appendChild(hostElement, iconElement);
+  //       break;
+  //   }
+  // });
 }
