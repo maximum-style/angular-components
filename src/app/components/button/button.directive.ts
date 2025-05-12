@@ -25,7 +25,6 @@ export class ButtonDirective {
 
   constructor() {
     effect(() => {
-      console.log('uepa');
       if (!this.icon()) {
         return;
       }
@@ -47,7 +46,7 @@ export class ButtonDirective {
     });
   }
 
-  public getTypeOrSeverity = () =>  this.severity() ? this.severity() : this.type();
+  public getTypeOrSeverity = () => this.severity() ? this.severity() : this.type();
 
   public hasIcon = () => !!this.icon();
 
