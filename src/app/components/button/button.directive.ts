@@ -46,30 +46,7 @@ export class ButtonDirective {
     });
   }
 
-  public getTypeOrSeverity = () => this.severity() ? this.severity() : this.type();
+  public getTypeOrSeverity = computed(() => this.severity() ? this.severity() : this.type());
 
-  public hasIcon = () => !!this.icon();
-
-  // public iconUpdate = computed(() => {
-  //   const icon = this.icon();
-
-  //   if (!icon) {
-  //     return;
-  //   }
-  //   const hostElement = this.element.nativeElement;
-  //   const iconElement = this.renderer.createElement('i');
-  //   const iconClasses = (icon as string).split(' ');
-  //   iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
-
-  //   switch (this.iconPosition()) {
-  //     case 'left':
-  //       this.renderer.addClass(iconElement, 'icon-left');
-  //       this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
-  //       break;
-  //     case 'right':
-  //       this.renderer.addClass(iconElement, 'icon-right');
-  //       this.renderer.appendChild(hostElement, iconElement);
-  //       break;
-  //   }
-  // });
+  public hasIcon = computed(() => !!this.icon());
 }
