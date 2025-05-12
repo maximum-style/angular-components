@@ -23,36 +23,54 @@ export class ButtonDirective {
   private renderer = inject(Renderer2);
   private element: ElementRef<HTMLInputElement> = inject(ElementRef);
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      console.log('uepa');
+      if (!this.icon()) {
+        return;
+      }
+      const hostElement = this.element.nativeElement;
+      const iconElement = this.renderer.createElement('i');
+      const iconClasses = (this.icon() as string).split(' ');
+      iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
 
-  public getTypeOrSeverity() {
-    return this.severity() ? this.severity() : this.type();
+      switch (this.iconPosition()) {
+        case 'left':
+          this.renderer.addClass(iconElement, 'icon-left');
+          this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
+          break;
+        case 'right':
+          this.renderer.addClass(iconElement, 'icon-right');
+          this.renderer.appendChild(hostElement, iconElement);
+          break;
+      }
+    });
   }
 
-  public hasIcon() {
-    return !!this.icon();
-  }
+  public getTypeOrSeverity = () =>  this.severity() ? this.severity() : this.type();
 
-  public iconUpdate = computed(() => {
-    const icon = this.icon();
+  public hasIcon = () => !!this.icon();
 
-    if (!icon) {
-      return;
-    }
-    const hostElement = this.element.nativeElement;
-    const iconElement = this.renderer.createElement('i');
-    const iconClasses = (icon as string).split(' ');
-    iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
+  // public iconUpdate = computed(() => {
+  //   const icon = this.icon();
 
-    switch (this.iconPosition()) {
-      case 'left':
-        this.renderer.addClass(iconElement, 'icon-left');
-        this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
-        break;
-      case 'right':
-        this.renderer.addClass(iconElement, 'icon-right');
-        this.renderer.appendChild(hostElement, iconElement);
-        break;
-    }
-  });
+  //   if (!icon) {
+  //     return;
+  //   }
+  //   const hostElement = this.element.nativeElement;
+  //   const iconElement = this.renderer.createElement('i');
+  //   const iconClasses = (icon as string).split(' ');
+  //   iconClasses.forEach((iconClass) => this.renderer.addClass(iconElement, iconClass));
+
+  //   switch (this.iconPosition()) {
+  //     case 'left':
+  //       this.renderer.addClass(iconElement, 'icon-left');
+  //       this.renderer.insertBefore(hostElement, iconElement, hostElement.firstChild);
+  //       break;
+  //     case 'right':
+  //       this.renderer.addClass(iconElement, 'icon-right');
+  //       this.renderer.appendChild(hostElement, iconElement);
+  //       break;
+  //   }
+  // });
 }
